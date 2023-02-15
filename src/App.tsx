@@ -4,9 +4,9 @@ import NewTodo from './Components/NewTodo';
 import { Todo } from './todo.model';
 
 const App: React.FC = () => {
-  //const todos = [{ id: 't1', text: 'Finish TS project and course' }];
   const [todos, setTodos] = useState<Todo[]>([]);
 
+  // Add to-dos
   const todoAddHandler = (text: string) => {
     setTodos((prevTodos) => [
       ...prevTodos,
@@ -14,12 +14,19 @@ const App: React.FC = () => {
     ]);
   };
 
+  // Delete to-dos
+  const todoDeleteHandler = (todoId: string) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== todoId);
+    });
+  };
+
   return (
     <div className="App">
       <NewTodo onAddTodo={todoAddHandler} />
       {/* A component that adds todos  */}
 
-      <TodoList items={todos} />
+      <TodoList items={todos} onDeleteTodo={todoDeleteHandler} />
     </div>
   );
 };
